@@ -1,3 +1,4 @@
+import java.util.InputMismatchException
 import java.util.Scanner
 
 fun main() {
@@ -37,21 +38,21 @@ fun getTextInput(): String {
 }
 
 fun getNumInput(optionList: List<Pair<String, () -> Unit>>): Int {
-    println("Выберите пункт меню, введя соответствующую цифру: ")
+    println("Выберите пункт меню, введя соответствующую цифру:")
     val scanner = Scanner(System.`in`)
+
     while (true) {
         try {
-            scanner.nextInt()
-        } catch (e: Exception) {
-            println("Ошибка ввода. Пожалуйста, введите число.")
-            scanner.next()
-        }
-        try {
-            if (scanner.toString().toInt() < 0 || scanner.toString().toInt() > optionList.size) {
-                continue
+            val choice = scanner.nextInt()
+            if (choice !in 0..optionList.size) {
+                println("Цифра должна быть в диапазоне от 0 до ${optionList.size}.")
+            } else {
+                scanner.nextLine()
+                return choice
             }
-        } catch (e: Exception) {
-            println("Введите число от 0 до ${optionList.size}.")
+        } catch (e: InputMismatchException) {
+            println("Ввод некорректен.Введите цифру в диапазоне от 0 до ${optionList.size}.")
+            scanner.next()
         }
     }
 }

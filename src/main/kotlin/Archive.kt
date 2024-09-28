@@ -14,7 +14,7 @@ class Archive(val name: String) {
         println("Введите текст заметки:")
         val noteContent = getTextInput()
         noteList.add(Note(noteName, noteContent))
-        println("Заметка '$name' добавлена.")
+        println("Заметка '$noteName' добавлена.")
     }
 
     fun showNotes(navigator: Navigator) {
@@ -23,7 +23,7 @@ class Archive(val name: String) {
             return
         }
 
-        navigator.showMenu("Выбор заметки", noteList.map { it.noteName to { it.getContent() } })
+        navigator.showMenu("Выбор заметки", noteList.map { it.noteName to { println(it.noteContent)} })
     }
 
 }
